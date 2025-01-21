@@ -4,17 +4,20 @@ phases:
   install:
     commands:
       - echo Installing NGINX
-      - sudo dnf update
-      - sudo dnf install nginx -y
+      - dnf clean all
+      - dnf makecache
+      - dnf update -y
+      - dnf install nginx -y
   build:
     commands:
       - echo Build started on `date`
+      - mkdir -p /var/www/html/
       - cp index.html /var/www/html/
   post_build:
     commands:
       - echo Configuring NGINX
 
-
 artifacts:
   files:
     - /var/www/html/index.html
+
